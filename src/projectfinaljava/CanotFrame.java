@@ -239,20 +239,20 @@ public class CanotFrame extends JFrame implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         //Return to main page from activity pages
-        if (e.getSource() == btnBackHome)
-             message = "Veuiilez quitter le system et retour a l'Accuiel? Yes/No";
-             int ans = JOptionPane.showConfirmDialog(null, message, "Quitter? Yes/No", JOptionPane.YES_NO_CANCEL_OPTION);
-             if(ans == 0){
-                 this.setVisible(false);
-             }         
+        if (e.getSource() == btnBackHome){
+            message = "Veuiilez quitter le system et retour a l'Accuiel? Yes/No";
+            int ans = JOptionPane.showConfirmDialog(null, message, "Quitter? Yes/No", JOptionPane.YES_NO_CANCEL_OPTION);
+            if(ans == 0)
+                this.setVisible(false);
+        }          
         if (e.getSource() == btnEquit){
             equitation = new EquitationFrame();
+            this.setVisible(false);
         }
-
         if (e.getSource() == btnEscal){
             escalade = new EscaladeFrame();
+            this.setVisible(false);
         }
-
         if (e.getSource() ==btnTarif){          
             //Calculate cost of canot
             //Get data and convert the values from user input

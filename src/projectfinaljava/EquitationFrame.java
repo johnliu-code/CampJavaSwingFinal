@@ -264,21 +264,23 @@ public class EquitationFrame extends JFrame implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        //Return to main page from activity pages
-        if (e.getSource() == btnBackHome)
+        //Return to main page from activity pages       
+  
+        if (e.getSource() == btnBackHome){
              message = "Veuiilez quitter le system et retour a l'Accuiel? Yes/No";
-             int ans = JOptionPane.showConfirmDialog(null, message, "Quitter? Yes/No", JOptionPane.YES_NO_CANCEL_OPTION);
-             if(ans == 0){
-                 this.setVisible(false);
-             }            
+            int ans = JOptionPane.showConfirmDialog(null, message, "Quitter? Yes/No", JOptionPane.YES_NO_CANCEL_OPTION);
+            if(ans == 0)
+            this.setVisible(false);
+        }
         if (e.getSource() == btnCanot){
             canot = new CanotFrame();
+            this.setVisible(false);
         }
 
         if (e.getSource() == btnEscal){
             escalade = new EscaladeFrame();
+            this.setVisible(false);
         }
-
         if (e.getSource() ==btnTarif){          
             //Calculate cost of stay
             //Get data and convert the values from user input
@@ -321,6 +323,7 @@ public class EquitationFrame extends JFrame implements ActionListener {
             else 
                 infoTarif.setText("Entrez votre information et choisirs,\n Cliquez sur le button Tarif pour calculer, \nEt confirmer avant de Reserver SVP!!");
         }
+
     }
             
 }

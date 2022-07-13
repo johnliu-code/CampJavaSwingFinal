@@ -15,12 +15,14 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
+import javafx.scene.text.Text;
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
@@ -38,10 +40,11 @@ public class TentFrame extends JFrame implements ActionListener{
      ImageIcon image3 = new ImageIcon("image3.jpg");
      ImageIcon image4 = new ImageIcon("image4.jpg");
      JButton btnRes, btnTarif, btnEquit, btnCanot, btnEscal;
-     JTextField jour_box, nom_box, phone_box,cour_box;
+     JTextField nom_box, phone_box,cour_box;
      JTextArea infoTarif;
-     JComboBox combo_nbrPer;
-     String[] joursopts = {"1", "2", "3", "4", "5", "6"};
+     JComboBox combo_nbrPer, combo_jourOpts;
+     String[] joursopts = {"1", "2", "3", "4", "5", "6", "7", "8", "9", "10"};
+     String[] nbrperOpts = {"1", "2", "3", "4", "5", "6"};
 
      EquitationFrame equitation;
      CanotFrame canot;
@@ -228,10 +231,11 @@ public class TentFrame extends JFrame implements ActionListener{
         JLabel phone = new JLabel("Telephone");
         phone.setFont(new Font("Arial", Font.PLAIN, 16));
         
-        jour_box = new JTextField(20);
-        jour_box.setPreferredSize(new Dimension(200, 30));
+        combo_jourOpts = new JComboBox(joursopts);
+        combo_jourOpts.setSelectedIndex(0);
+        combo_jourOpts.setPreferredSize(new Dimension(200, 30));
         
-        combo_nbrPer = new JComboBox(joursopts);
+        combo_nbrPer = new JComboBox(nbrperOpts);
         combo_nbrPer.setSelectedIndex(0);
         combo_nbrPer.setPreferredSize(new Dimension(200, 30));
 
@@ -243,7 +247,7 @@ public class TentFrame extends JFrame implements ActionListener{
         phone_box.setPreferredSize(new Dimension(200, 30));
         
         panForm.add(jour);
-        panForm.add(jour_box);
+        panForm.add(combo_jourOpts);
         panForm.add(nbrePersonne);
         panForm.add(combo_nbrPer);
         panForm.add(nom);
@@ -294,12 +298,13 @@ public class TentFrame extends JFrame implements ActionListener{
         btnEscal.addActionListener(this);
 
         this.pack();
-        this.setVisible(true);       
+        this.setVisible(true);     
     }
+
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        //Open new window and close current
+       //Open new window and close current
         if (e.getSource() == btnEquit){
             equitation = new EquitationFrame();
         }
@@ -320,7 +325,10 @@ public class TentFrame extends JFrame implements ActionListener{
             campeur = new Campeur(intputNom, intputPhone, intputCourriel);
             
             //Calculate cost of stay
-            jours = Integer.parseInt(jour_box.getText());
+            //Valid user number input value
+
+            jours = getIntegerFromTextBox(combo_jourOpts.getSelectedItem().toString());
+            
             nombrePer = Integer.parseInt(combo_nbrPer.getSelectedItem().toString());
 
             //Tarif instance
@@ -388,4 +396,16 @@ public class TentFrame extends JFrame implements ActionListener{
         System.out.println("Totla Tarif: $" + tante.tarif.TotalTarifs());
     }
     
+        //Validation checker
+        Integer getIntegerFromTextBox(String text) {
+            Integer integer;
+
+            if (text.trim().equals("")) { 
+                integer = 0; 
+            } else { 
+                integer = Integer.parseInt(text); 
+            }
+
+            return integer;
+        }
 }

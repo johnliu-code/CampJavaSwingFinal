@@ -36,9 +36,10 @@ public class EscaladeFrame extends JFrame implements ActionListener {
      //Escalade frame for the information of cost
      ImageIcon image = new ImageIcon("tree-climb.jpg");
      JButton btnRes, btnTarif, btnEquit, btnCanot, btnBackHome;
-     JTextField nbrPer_box, nom_box, phone_box,cour_box;
+     JTextField nom_box, phone_box,cour_box;
      JTextArea infoTarif;
-     JComboBox combo_heurs;
+     JComboBox combo_heurs, combo_nbrPer;
+     String[] nbrperOpts = {"1", "2", "3", "4", "5", "6"};
      String[] heurs_opts = {"1", "2", "3", "4", "5", "6", "7", "8"};
      JRadioButton btnRweek,btnRweekend;
      
@@ -138,8 +139,9 @@ public class EscaladeFrame extends JFrame implements ActionListener {
         JLabel heursES = new JLabel("Heurs de Commander");
         heursES.setFont(new Font("Arial", Font.PLAIN, 16));
         
-        nbrPer_box = new JTextField(20);
-        nbrPer_box.setPreferredSize(new Dimension(200, 30));
+        combo_nbrPer = new JComboBox(nbrperOpts);
+        combo_nbrPer.setSelectedIndex(0);
+        combo_nbrPer.setPreferredSize(new Dimension(200, 30));
       
         combo_heurs = new JComboBox(heurs_opts);
         combo_heurs.setSelectedIndex(0);
@@ -147,7 +149,7 @@ public class EscaladeFrame extends JFrame implements ActionListener {
         
               
         panForm.add(nbrPer);
-        panForm.add(nbrPer_box);
+        panForm.add(combo_nbrPer);
         panForm.add(heursES);
         panForm.add(combo_heurs);
 
@@ -232,24 +234,22 @@ public class EscaladeFrame extends JFrame implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         //Return to main page from activity pages
-        if (e.getSource() == btnBackHome)
-             message = "Veuiilez quitter le system et retour a l'Accuiel? Yes/No";
-             int ans = JOptionPane.showConfirmDialog(null, message, "Quitter? Yes/No", JOptionPane.YES_NO_CANCEL_OPTION);
-             if(ans == 0){
+        if (e.getSource() == btnBackHome){
+            message = "Veuiilez quitter le system et retour a l'Accuiel? Yes/No";
+            int ans = JOptionPane.showConfirmDialog(null, message, "Quitter? Yes/No", JOptionPane.YES_NO_CANCEL_OPTION);
+            if(ans == 0)
                  this.setVisible(false);
-             }             
+        }   
         if (e.getSource() == btnEquit){
             equitation = new EquitationFrame();          
         }
-
         if (e.getSource() == btnCanot){
             canot = new CanotFrame();
         }
-
         if (e.getSource() ==btnTarif){          
             //Calculate cost of escalade
             //Get data and convert the values from user input
-            nombrePer = Integer.parseInt(nbrPer_box.getText());
+            nombrePer = Integer.parseInt(combo_nbrPer.getSelectedItem().toString());
             heures = Integer.parseInt(combo_heurs.getSelectedItem().toString());
            
             // using Tarif instance for existing class tent
