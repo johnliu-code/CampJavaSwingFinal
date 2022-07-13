@@ -254,7 +254,16 @@ public class CanotFrame extends JFrame implements ActionListener {
             this.setVisible(false);
         }
         if (e.getSource() ==btnTarif){          
-            //Calculate cost of canot
+            //Reserver button will add data to list for colecting and using           
+            if (tante.campeur != null && tante.tarif != null){
+                tante.DispalyBookingInfo();
+                infoTarif.setText("Reserver success!! Merci! \n" + tante.UserInfo());
+            }
+            else 
+                infoTarif.setText("Entrez votre information et choisirs,\n Cliquez sur le button Tarif pour calculer, \nEt confirmer avant de Reserver SVP!!");
+        }
+        if (e.getSource() ==btnRes){
+                        //Calculate cost of canot
             //Get data and convert the values from user input
             foisDeuxHeures = Integer.parseInt(combo_foisdebloc.getSelectedItem().toString());
             System.out.println("Nombre de bloc : " + foisDeuxHeures);            //Only for confirm in console
@@ -282,15 +291,6 @@ public class CanotFrame extends JFrame implements ActionListener {
                     + "Confermer et reserver SVP!";
             //Dislay in textarea
             infoTarif.setText(results);
-        }
-        if (e.getSource() ==btnRes){
-            //Reserver button will add data to list for colecting and using           
-            if (tante.campeur != null && tante.tarif != null){
-                tante.DispalyBookingInfo();
-                infoTarif.setText("Reserver success!! Merci! \n" + tante.UserInfo());
-            }
-            else 
-                infoTarif.setText("Entrez votre information et choisirs,\n Cliquez sur le button Tarif pour calculer, \nEt confirmer avant de Reserver SVP!!");
         }
     }
 }

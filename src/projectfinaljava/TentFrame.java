@@ -27,6 +27,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
+import static projectfinaljava.EquitationFrame.tante;
 
 /**
  *
@@ -318,6 +319,19 @@ public class TentFrame extends JFrame implements ActionListener{
         }
             
         if (e.getSource() ==btnTarif){
+             //Reserver button will add data to list for colecting and using           
+            if (campeur != null && tarif != null){
+                campeurs.add(campeur);
+                tarifs.add(tarif);
+
+                DispalyBookingInfo();
+
+                infoTarif.setText("Reserver success!! Merci! \n" + UserInfo());
+            }
+            else 
+                infoTarif.setText("Entrez votre information et choisirs,\n Cliquez sur le button Reserver pour commander.");
+        }
+        if (e.getSource() ==btnRes){
             //Create instance of campeur with form input values
             String intputNom = nom_box.getText();
             String intputPhone = phone_box.getText();
@@ -341,22 +355,10 @@ public class TentFrame extends JFrame implements ActionListener{
                     + "Votre Nom: "  + campeur.getNom() + "\n"
                     + "Votre Phone: " + campeur.getPhone() + "\n"
                     + "Votre Courriel: " + campeur.getCourriel() + "\n"
-                    + "Confermer et reserver SVP!";
+                    + "Merci pour votre commander!";
+            
             //Dislay in textarea
             infoTarif.setText(results);
-        }
-        if (e.getSource() ==btnRes){
-            //Reserver button will add data to list for colecting and using           
-            if (campeur != null && tarif != null){
-                campeurs.add(campeur);
-                tarifs.add(tarif);
-
-                DispalyBookingInfo();
-
-                infoTarif.setText("Reserver success!! Merci! \n" + UserInfo());
-            }
-            else 
-                infoTarif.setText("Entrez votre information et choisirs,\n Cliquez sur le button Tarif pour calculer, \nEt confirmer avant de Reserver SVP!!");
         }
  
     }

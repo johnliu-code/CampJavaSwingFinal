@@ -282,7 +282,16 @@ public class EquitationFrame extends JFrame implements ActionListener {
             this.setVisible(false);
         }
         if (e.getSource() ==btnTarif){          
-            //Calculate cost of stay
+            //To display booking info and cost details           
+            if (tante.campeur != null && tante.tarif != null){
+                tante.DispalyBookingInfo();
+                infoTarif.setText("Reserver success!! Merci! \n" + tante.UserInfo());
+            }
+            else 
+                infoTarif.setText("Entrez votre information et choisirs,\n Cliquez sur le button Tarif pour calculer, \nEt confirmer avant de Reserver SVP!!");
+        }
+        if (e.getSource() ==btnRes){    
+            //Calculate cost of activity
             //Get data and convert the values from user input
             nombrePer = Integer.parseInt(combo_nbrPer.getSelectedItem().toString());
             nbrParcours = Integer.parseInt(combo_parcour.getSelectedItem().toString());
@@ -313,15 +322,6 @@ public class EquitationFrame extends JFrame implements ActionListener {
                     + "Confermer et reserver SVP!";
             //Dislay in textarea
             infoTarif.setText(results);
-        }
-        if (e.getSource() ==btnRes){           
-            //Reserver button will add data to list for colecting and using           
-            if (tante.campeur != null && tante.tarif != null){
-                tante.DispalyBookingInfo();
-                infoTarif.setText("Reserver success!! Merci! \n" + tante.UserInfo());
-            }
-            else 
-                infoTarif.setText("Entrez votre information et choisirs,\n Cliquez sur le button Tarif pour calculer, \nEt confirmer avant de Reserver SVP!!");
         }
 
     }
