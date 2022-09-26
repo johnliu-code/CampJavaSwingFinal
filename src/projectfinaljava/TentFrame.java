@@ -319,48 +319,56 @@ public class TentFrame extends JFrame implements ActionListener{
         }
             
         if (e.getSource() ==btnTarif){
-             //Reserver button will add data to list for colecting and using           
+            
+            //Tarif button will add data to list for colecting and using           
             if (campeur != null && tarif != null){
-                campeurs.add(campeur);
-                tarifs.add(tarif);
-
                 DispalyBookingInfo();
-
-                infoTarif.setText("Reserver success!! Merci! \n" + UserInfo());
+                infoTarif.setText(UserInfo());
             }
             else 
                 infoTarif.setText("Entrez votre information et choisirs,\n Cliquez sur le button Reserver pour commander.");
         }
         if (e.getSource() ==btnRes){
             //Create instance of campeur with form input values
-            String intputNom = nom_box.getText();
-            String intputPhone = phone_box.getText();
-            String intputCourriel = cour_box.getText();    
-            campeur = new Campeur(intputNom, intputPhone, intputCourriel);
-            
-            //Calculate cost of stay
-            //Valid user number input value
+            //Check if user input nom and telephone or courriel are not empty
+            if (nom_box.getText().equals("") && (phone_box.getText().equals("") || cour_box.getText().equals(""))){
+                String message = "Entrez votre information pour reserver SVP!";
+                JOptionPane.showMessageDialog(null, message, "Empty input value error", JOptionPane.INFORMATION_MESSAGE);
+            }
+            else{
+                String intputNom = nom_box.getText();
+                String intputPhone = phone_box.getText();
+                String intputCourriel = cour_box.getText();    
+                campeur = new Campeur(intputNom, intputPhone, intputCourriel); 
+                
+                //Calculate cost of stay
+                //Valid user number input value
 
-            jours = getIntegerFromTextBox(combo_jourOpts.getSelectedItem().toString());
-            
-            nombrePer = Integer.parseInt(combo_nbrPer.getSelectedItem().toString());
+                jours = getIntegerFromTextBox(combo_jourOpts.getSelectedItem().toString());
 
-            //Tarif instance
-            tarif = new Tarif(campeur);
-            tarif_Tante = tarif.calculTarifTante(jours, nombrePer);
+                nombrePer = Integer.parseInt(combo_nbrPer.getSelectedItem().toString());
+
+                //Tarif instance
+                tarif = new Tarif(campeur);
+                tarif_Tante = tarif.calculTarifTante(jours, nombrePer);
+
+                //Print results in textarea
+                String results = "Tarif de sejour est: " + Float.toString(tarif_Tante) + "\n"
+                        + "Pour " + nombrePer + " personnes et " + jours + " jours \n"
+                        + "Votre Nom: "  + campeur.getNom() + "\n"
+                        + "Votre Phone: " + campeur.getPhone() + "\n"
+                        + "Votre Courriel: " + campeur.getCourriel() + "\n"
+                        + "Merci pour votre commander!";
+
+                //Dislay in textarea
+                infoTarif.setText(results);
             
-            //Print results in textarea
-            String results = "Tarif de sejour est: " + Float.toString(tarif_Tante) + "\n"
-                    + "Pour " + nombrePer + " personnes et " + jours + " jours \n"
-                    + "Votre Nom: "  + campeur.getNom() + "\n"
-                    + "Votre Phone: " + campeur.getPhone() + "\n"
-                    + "Votre Courriel: " + campeur.getCourriel() + "\n"
-                    + "Merci pour votre commander!";
-            
-            //Dislay in textarea
-            infoTarif.setText(results);
+                if (campeur != null && tarif != null){
+                campeurs.add(campeur);
+                tarifs.add(tarif);
+                }
+            }          
         }
- 
     }
     
     //Method for reusing
